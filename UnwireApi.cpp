@@ -6,6 +6,7 @@
 #include <string>
 #include <nlohmann/json.hpp>
 #include <vector>
+#include <UnwireApi.h>
 
 using json = nlohmann::json;
 
