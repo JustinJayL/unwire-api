@@ -7,6 +7,7 @@
 #include <string>
 #include <nlohmann/json.hpp>
 #include <vector>
+#include <openssl/evp.h>
 
 using json = nlohmann::json;
 
@@ -47,6 +48,7 @@ struct AuthToken {
     double expiresAt;
 };
 
+struct
 //Post to /access with the old bearer
 AuthToken refreshToken() {
     json j;
@@ -135,8 +137,31 @@ AuthToken initialLogin(string email, string password) {
     return authToken;
 }
 
+//returns new openssl EVP_PKEY for x25519
+EVP_PKEY* generateX25519() {
+    //TODO: 32 bytes?
+    EVP_PKEY* pKey = NULL;
+    EVP_PKEY_CTX* pctx = EVP_PKEY_CTX_new_id(NID_X25519, NULL);
+    size_t rawPubKeySize = 32;
+    unsigned char* rawPubKey = new unsigned char[rawPubKeySize];
+
+    EVP_PKEY_keygen_init(pctx);
+    EVP_PKEY_keygen(pctx, &pKey);
+    //EVP_PKEY_get_raw_public_key(pKey, rawPubKey, &rawPubKeySize);
+
+    //cout << "test, pubkeysize is " << rawPubKeySize << std::endl;
+
+    //cout << rawPubKey;
+    return pKey;
+
+}
+
 int main()
 {
+    
+    EVP_PKEY* pKey = generateX25519();
+
+    return 0;
     std::ifstream file("creds.json");
     json j;
     file >> j;
