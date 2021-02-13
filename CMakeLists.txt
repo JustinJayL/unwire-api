@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.0)
 set (CMAKE_CXX_STANDARD 17)
 project(UnwireApi)
 
-add_executable(UnwireApi UnwireApi.cpp)
 
+add_executable(UnwireApi UnwireApi.cpp ratchet.cpp ratchet.cpp ratchet.hpp util.cpp util.hpp)
 find_package(OpenSSL REQUIRED)
 find_package(CURL CONFIG REQUIRED)
 

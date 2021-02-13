@@ -8,6 +8,7 @@
 #include <nlohmann/json.hpp>
 #include <vector>
 #include <openssl/evp.h>
+#include "ratchet.hpp"
 
 using json = nlohmann::json;
 
@@ -158,7 +159,8 @@ EVP_PKEY* generateX25519() {
 
 int main()
 {
-    
+    ratchet::runTemp();
+    return 0;
     EVP_PKEY* pKey = generateX25519();
 
     return 0;
